@@ -180,7 +180,7 @@ class Parser
         preg_match_all(
             "~
                   original \s* = \s* (?: \[\[ [^\]\r\n]* \]\] | [^|\]}]* )  # original=[[千米|km]]
-                | [a-z\-]+ \s* : \s* [^};|\r\n]* (?=\s*[;|])  # zh-cn:千米
+                | [a-z\-]+ \s* : \s* [^};|\r\n]* (?=\s*(?: [};|] | $))  # zh-cn:千米
                 | CItem[^;|}]*  # CItem
             ~iuxS",
             $item,
