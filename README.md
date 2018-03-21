@@ -16,7 +16,7 @@
 詳見 `demo.php` 。
 執行 `$ php demo.php` 後，結果的 PHP 檔案將存放於 `results` 資料夾。
 
-以下是 `results/Wow.php` （`魔獸世界`公共轉換組） 的部分內容：
+以下是 `results/Wow.php` （[魔獸世界 公共轉換組](https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%9D%97:CGroup/Wow)） 的部分內容：
 
 ```php
 <?php
