@@ -13,6 +13,7 @@ $outputDir = __DIR__ . '/results';
 // https://zh.wikipedia.org/wiki/Category:公共转换组模块
 $urls = [
     'https://zh.wikipedia.org/wiki/模块:CGroup/Wow',
+    'https://zh.wikipedia.org/wiki/Template:CGroup/Movie',
     'https://zh.wikipedia.org/wiki/Template:CGroup/Unit',
 ];
 

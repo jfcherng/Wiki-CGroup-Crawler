@@ -179,7 +179,7 @@ class Parser
 
         preg_match_all(
             "~
-                  original \s* = \s* \[\[ [^\]\r\n]* \]\]  # original=[[千米|km]]
+                  original \s* = \s* (?: \[\[ [^\]\r\n]* \]\] | [^|\]}]* )  # original=[[千米|km]]
                 | [a-z\-]+ \s* : \s* [^};|\r\n]* (?=\s*[;|])  # zh-cn:千米
                 | CItem[^;|}]*  # CItem
             ~iuxS",
@@ -205,12 +205,12 @@ class Parser
         $ret_ = [];
         $rule = '';
         foreach ($ret as $val) {
-            if (preg_match('~CItem[^;|}]*~iuxS', $val, $matches)) {
+            if (preg_match("~^CItem~iuxS", $val, $matches)) {
                 $ret_['type'] = trim($matches[0]);
-            } elseif (preg_match('~(?:[a-z\-]+ \s* : \s* [^};|\r\n]*)~iuxS', $val, $matches)) {
+            } elseif (preg_match("~^(?:[a-z\-]+ \s* : \s* [^};|\r\n]*)~iuxS", $val, $matches)) {
                 $rule .= trim($matches[0]) . ';';
-            } elseif (preg_match('~original \s* = \s* \[\[ [^\]\r\n]* \]\]~iuxS', $val, $matches)) {
-                $ret_['original'] = trim(preg_replace('~original \s* = \s* ~iuxS', '', $matches[0]));
+            } elseif (preg_match("~^original \s* =~iuxS", $val, $matches)) {
+                $ret_['original'] = trim(preg_replace("~original \s* =~iuxS", '', $matches[0]));
             } else {
                 throw new RuntimeException("Unknown value: {$val}");
             }
@@ -229,7 +229,13 @@ class Parser
         $ret = $ret_;
 
         if ($tidy) {
-            if (isset($ret['type']) && $ret['type'] !== 'CItem') {
+            if (0&&
+                isset($ret['type']) &&
+                (
+                    $ret['type'] !== 'CItem' &&
+                    $ret['type'] !== 'CItemHidden'
+                )
+            ) {
                 $ret = [];
             } else {
                 /**
