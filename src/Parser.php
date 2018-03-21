@@ -209,7 +209,7 @@ class Parser
                 $ret_['type'] = trim($matches[0]);
             } elseif (preg_match("~^(?:[a-z\-]+ \s* : \s* [^};|\r\n]*)~iuxS", $val, $matches)) {
                 $rule .= trim($matches[0]) . ';';
-            } elseif (preg_match("~^original \s* =~iuxS", $val, $matches)) {
+            } elseif (preg_match("~^original \s* =.*~iuxS", $val, $matches)) {
                 $ret_['original'] = trim(preg_replace("~original \s* =~iuxS", '', $matches[0]));
             } else {
                 throw new RuntimeException("Unknown value: {$val}");
