@@ -1,4 +1,4 @@
-# Wiki-CGroup-Crawler
+# Wiki-CGroup-Crawler [![Build Status](https://travis-ci.org/jfcherng/Wiki-CGroup-Crawler.svg?branch=master)](https://travis-ci.org/jfcherng/Wiki-CGroup-Crawler)
 
 此腳本用於抓取維基百科的公共轉換組詞庫，並將結果儲存為 PHP 程式碼。
 
