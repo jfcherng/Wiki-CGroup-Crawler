@@ -8,12 +8,14 @@ use RuntimeException;
 
 class Crawler
 {
+    /**
+     * Crawl a Wiki CGroup page.
+     *
+     * @param string $url The URL
+     *
+     * @return string the HTML source code of it's editing page
+     */
     public static function crawl(string $url): string
-    {
-        return self::getHtml($url);
-    }
-
-    protected static function getHtml(string $url): string
     {
         $visitedUrls = new Set();
 
@@ -51,6 +53,15 @@ class Crawler
         return $ql->getHtml();
     }
 
+    /**
+     * Query a URL using GET method with specific HTTP headers.
+     *
+     * @param string     $url     The URL
+     * @param null|array $args    The GET mothod arguments
+     * @param null|array $headers The HTTP headers
+     *
+     * @return QueryList
+     */
     protected static function query(string $url, ?array $args = null, ?array $headers = null): QueryList
     {
         return QueryList::get($url, $args ?? [], [

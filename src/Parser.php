@@ -6,6 +6,13 @@ use RuntimeException;
 
 class Parser
 {
+    /**
+     * Find rules and parse them from the HTML source codes of a Wiki CGroup page.
+     *
+     * @param string $html The HTML source codes
+     *
+     * @return array
+     */
     public static function parse(string $html): array
     {
         $ret = (
@@ -16,6 +23,13 @@ class Parser
         return $ret;
     }
 
+    /**
+     * Find single-brace rules and parse them from the HTML.
+     *
+     * @param string $html The html
+     *
+     * @return array
+     */
     protected static function parseSingleBrace(string $html): array
     {
         // find the following form in the html
@@ -45,6 +59,14 @@ class Parser
         return $ret;
     }
 
+    /**
+     * Parse single-brace rules.
+     *
+     * @param string $item The item
+     * @param bool   $tidy Make the result simplier
+     *
+     * @return array
+     */
     protected static function parseSingleBraceItem(string $item, bool $tidy = false): array
     {
         preg_match_all("~([a-zA-Z]+) \s* = \s* '([^']*)'~uxS", $item, $matches1, PREG_SET_ORDER);
@@ -104,6 +126,13 @@ class Parser
         return $ret;
     }
 
+    /**
+     * Find double-brace rules and parse them from the HTML.
+     *
+     * @param string $html The html
+     *
+     * @return array
+     */
     protected static function parseDoubleBrace(string $html): array
     {
         // find the following form in the html
@@ -133,6 +162,16 @@ class Parser
         return $ret;
     }
 
+    /**
+     * Parse double-brace rules.
+     *
+     * @param string $item The item
+     * @param bool   $tidy Make the result simplier
+     *
+     * @throws RuntimeException
+     *
+     * @return array
+     */
     protected static function parseDoubleBraceItem(string $item, bool $tidy = false): array
     {
         // CItem|zh-cn:千米;zh-tw:公里;zh-hk:公里;zh-sg:公里 |desc=10<sup>3</sup>m|original=[[千米|km]]
@@ -211,6 +250,13 @@ class Parser
         return $ret;
     }
 
+    /**
+     * Make an item array more simple.
+     *
+     * @param array $item The item
+     *
+     * @return array
+     */
     protected static function makeTidy(array $item): array
     {
         /**
@@ -262,6 +308,13 @@ class Parser
         return array_change_key_case($ret, CASE_LOWER);
     }
 
+    /**
+     * Make a map by using a pair as its key and value.
+     *
+     * @param array $pair The pair
+     *
+     * @return null|array an array if success, null otherwise
+     */
     protected static function pairToMap(array $pair): ?array
     {
         return array_has($pair, [0, 1]) ? [$pair[0] => $pair[1]] : null;
