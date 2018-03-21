@@ -229,7 +229,7 @@ class Parser
         $ret = $ret_;
 
         if ($tidy) {
-            if (0 &&
+            if (
                 isset($ret['type']) &&
                 (
                     $ret['type'] !== 'CItem' &&
