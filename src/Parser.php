@@ -205,7 +205,7 @@ class Parser
         $ret_ = [];
         $rule = '';
         foreach ($ret as $val) {
-            if (preg_match("~^CItem~iuxS", $val, $matches)) {
+            if (preg_match('~^CItem~iuxS', $val, $matches)) {
                 $ret_['type'] = trim($matches[0]);
             } elseif (preg_match("~^(?:[a-z\-]+ \s* : \s* [^};|\r\n]*)~iuxS", $val, $matches)) {
                 $rule .= trim($matches[0]) . ';';
@@ -229,7 +229,7 @@ class Parser
         $ret = $ret_;
 
         if ($tidy) {
-            if (0&&
+            if (0 &&
                 isset($ret['type']) &&
                 (
                     $ret['type'] !== 'CItem' &&
