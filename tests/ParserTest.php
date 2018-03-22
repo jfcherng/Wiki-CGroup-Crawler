@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Jfcherng\WikiCGroupCrawler\Parser
  */
-final class ParserTest extends TestCase
+class ParserTest extends TestCase
 {
     /**
      * Provides testcases.
@@ -17,7 +17,7 @@ final class ParserTest extends TestCase
      */
     public function parserParseDataProvider(): array
     {
-        $testcases = [
+        return [
             // the first testcase
             [
                 // input
@@ -67,10 +67,6 @@ final class ParserTest extends TestCase
                 ],
             ],
         ];
-
-        $this->ksortRecursive($testcases);
-
-        return $testcases;
     }
 
     /**
@@ -83,23 +79,6 @@ final class ParserTest extends TestCase
      */
     public function testParse(string $input, array $output): void
     {
-        $parsed = Parser::parse($input);
-
-        $this->ksortRecursive($parsed);
-
-        $this->assertSame($parsed, $output);
-    }
-
-    protected function ksortRecursive(array &$array, int $flags = SORT_REGULAR): void
-    {
-        ksort($array, $flags);
-
-        foreach ($array as &$element) {
-            if (is_array($element)) {
-                $this->{__FUNCTION__}($element, $flags);
-            }
-        }
-
-        unset($element);
+        $this->assertEquals($output, Parser::parse($input));
     }
 }
