@@ -64,11 +64,14 @@ class Crawler
      */
     protected static function query(string $url, ?array $args = null, ?array $headers = null): QueryList
     {
-        return QueryList::get($url, $args ?? [], [
-            'headers' => $headers ?? [
-                'Referer' => preg_match('~https?://[^/]+~S', $url, $matches) ? $matches[0] : '',
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.33 Safari/537.36',
-            ],
+        $args = $args ?? [];
+        $headers = $headers ?? [
+            'Referer' => preg_match('~https?://[^/]+~S', $url, $matches) ? $matches[0] : '',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.33 Safari/537.36',
+        ];
+
+        return QueryList::get($url, $args, [
+            'headers' => $headers,
             'timeout' => 20,
             'verify' => false,
         ]);

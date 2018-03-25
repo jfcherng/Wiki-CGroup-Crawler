@@ -104,10 +104,10 @@ class Parser
          *
          * @var array
          */
-        $ret = array_pluck($matches, 2, 1);
+        $ret = array_pluck($matches, '2', '1');
 
         if ($tidy) {
-            if (isset($ret['type']) && $ret['type'] !== 'item') {
+            if (array_get($ret, 'type') !== 'item') {
                 $ret = [];
             } else {
                 /**
@@ -149,7 +149,7 @@ class Parser
         $ret = [];
 
         // collect all matches
-        $items = array_pluck($matches, 0);
+        $items = array_pluck($matches, '0');
 
         foreach ($items as $key => $item) {
             $item = static::parseDoubleBraceItem($item, true);
@@ -200,7 +200,7 @@ class Parser
          *
          * @var array
          */
-        $ret = array_pluck($matches, 0);
+        $ret = array_pluck($matches, '0');
 
         $ret_ = [];
         $rule = '';
@@ -229,13 +229,7 @@ class Parser
         $ret = $ret_;
 
         if ($tidy) {
-            if (
-                isset($ret['type']) &&
-                (
-                    $ret['type'] !== 'CItem' &&
-                    $ret['type'] !== 'CItemHidden'
-                )
-            ) {
+            if (!in_array(array_get($ret, 'type'), ['CItem', 'CItemHidden'])) {
                 $ret = [];
             } else {
                 /**
