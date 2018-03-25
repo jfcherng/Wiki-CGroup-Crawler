@@ -53,7 +53,6 @@ class ParserTest extends TestCase
                 ]),
                 [
                     [
-                        'original' => '',
                         'zh-hans' => '残疾人奥林匹克运动会',
                         'zh-tw' => '帕拉林匹克運動會',
                         'zh-hk' => '傷殘奧林匹克運動會',

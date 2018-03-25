@@ -14,7 +14,7 @@ $outputDir = __DIR__ . '/results';
 $urls = [
     'https://zh.wikipedia.org/wiki/模块:CGroup/Wow',
     'https://zh.wikipedia.org/wiki/Template:CGroup/Movie',
-    'https://zh.wikipedia.org/wiki/Template:CGroup/Unit',
+    'https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%9D%97:CGroup/OnePiece',
 ];
 
 !is_dir($outputDir) && mkdir($outputDir, 0777, true);

@@ -276,14 +276,13 @@ class Parser
          *
          * @var array
          */
-        if (!array_has($item, ['original', 'rule'])) {
+        if (trim(array_get($item, 'rule', '')) === '') {
             return [];
         }
 
-        $ret = [
-            'original' => $item['original'],
-        ];
+        $ret = [];
 
+        // parse localizations
         foreach (explode(';', $item['rule']) as $subrule) {
             $subrule = array_map('trim', explode(':', $subrule, 2));
 
@@ -295,9 +294,15 @@ class Parser
             $ret += self::pairToMap($subrule) ?? [];
         }
 
-        // should at least contains "original" and two localizations
-        if (count($ret) < 3) {
+        // there should be at least two localizations
+        if (count($ret) < 2) {
             return [];
+        }
+
+        // add the original text if it exists
+        $item['original'] = trim(array_get($item, 'original', ''));
+        if ($item['original'] !== '') {
+            $ret['original'] = $item['original'];
         }
 
         /**
