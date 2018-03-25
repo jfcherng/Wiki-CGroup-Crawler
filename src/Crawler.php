@@ -29,7 +29,7 @@ class Crawler
             }
 
             $visitedUrls->add($redirectedUrl);
-            $ql = self::query($redirectedUrl);
+            $ql = static::query($redirectedUrl);
 
             // check for URL soft redirection
             $redirectedUrls = $ql->find('#softredirect > a')->attrs('href')->all();
@@ -48,7 +48,7 @@ class Crawler
 
         // the editing page is the one which we are actually interested in
         // i.e., URL like https://zh.wikipedia.org/wiki/Template:CGroup/Unit?action=edit
-        $ql = self::query(last($visitedUrls->values()), ['action' => 'edit']);
+        $ql = static::query(last($visitedUrls->values()), ['action' => 'edit']);
 
         return $ql->getHtml();
     }

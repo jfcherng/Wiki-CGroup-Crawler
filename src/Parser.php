@@ -16,8 +16,8 @@ class Parser
     public static function parse(string $html): array
     {
         $ret = (
-            self::parseSingleBrace($html) +
-            self::parseDoubleBrace($html)
+            static::parseSingleBrace($html) +
+            static::parseDoubleBrace($html)
         );
 
         return $ret;
@@ -49,7 +49,7 @@ class Parser
         $items = array_pluck($matches, 0);
 
         foreach ($items as $key => $item) {
-            $item = self::parseSingleBraceItem($item, true);
+            $item = static::parseSingleBraceItem($item, true);
 
             if (!empty($item)) {
                 $ret[] = $item;
@@ -119,7 +119,7 @@ class Parser
                  *
                  * @var array
                  */
-                $ret = self::makeTidy($ret);
+                $ret = static::makeTidy($ret);
             }
         }
 
@@ -152,7 +152,7 @@ class Parser
         $items = array_pluck($matches, 0);
 
         foreach ($items as $key => $item) {
-            $item = self::parseDoubleBraceItem($item, true);
+            $item = static::parseDoubleBraceItem($item, true);
 
             if (!empty($item)) {
                 $ret[] = $item;
@@ -249,7 +249,7 @@ class Parser
                  *
                  * @var array
                  */
-                $ret = self::makeTidy($ret);
+                $ret = static::makeTidy($ret);
             }
         }
 
@@ -291,7 +291,7 @@ class Parser
                 continue;
             }
 
-            $ret += self::pairToMap($subrule) ?? [];
+            $ret += static::pairToMap($subrule) ?? [];
         }
 
         // there should be at least two localizations
