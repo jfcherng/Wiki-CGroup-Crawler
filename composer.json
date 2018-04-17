@@ -13,6 +13,11 @@
             "Jfcherng\\WikiCGroupCrawler\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Jfcherng\\WikiCGroupCrawler\\Test\\": "tests/"
+        }
+    },
     "config": {
         "sort-packages": true
     },
