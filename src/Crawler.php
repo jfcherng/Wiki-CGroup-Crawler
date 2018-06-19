@@ -17,6 +17,10 @@ class Crawler
      */
     public static function crawl(string $url): string
     {
+        if (!preg_match('~CGroup/(.*)$~iuS', $url)) {
+            return '';
+        }
+
         $visitedUrls = new Set();
 
         // find out the actual page (there may be a URL redirection)
@@ -51,6 +55,18 @@ class Crawler
         $ql = static::query(last($visitedUrls->values()), ['action' => 'edit']);
 
         return $ql->getHtml();
+    }
+
+    /**
+     * Crawl Wiki CGroup pages.
+     *
+     * @param string[] $urls The URL
+     *
+     * @return string[] the HTML source codes of it's editing page
+     */
+    public static function crawls(array $urls): array
+    {
+        return array_map(__CLASS__ . '::crawl', $urls);
     }
 
     /**

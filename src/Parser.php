@@ -2,6 +2,7 @@
 
 namespace Jfcherng\WikiCGroupCrawler;
 
+use Illuminate\Support\Collection;
 use RuntimeException;
 
 class Parser
@@ -15,12 +16,21 @@ class Parser
      */
     public static function parse(string $html): array
     {
-        $ret = (
+        return
             static::parseSingleBrace($html) +
-            static::parseDoubleBrace($html)
-        );
+            static::parseDoubleBrace($html);
+    }
 
-        return $ret;
+    /**
+     * Find rules and parse them from the HTML source codes of Wiki CGroup pages.
+     *
+     * @param string[] $html The HTML source codes
+     *
+     * @return array[]
+     */
+    public static function parses(array $htmls): array
+    {
+        return array_map(__CLASS__ . '::parse', $htmls);
     }
 
     /**
@@ -43,20 +53,19 @@ class Parser
             return [];
         }
 
-        $ret = [];
+        return (new Collection($matches))
+            // collect all matches
+            ->pluck('0')
+            ->map(function (string $item): array {
+                $item = static::parseSingleBraceItem($item, true);
 
-        // collect all matches
-        $items = array_pluck($matches, 0);
-
-        foreach ($items as $key => $item) {
-            $item = static::parseSingleBraceItem($item, true);
-
-            if (!empty($item)) {
-                $ret[] = $item;
-            }
-        }
-
-        return $ret;
+                return empty($item) ? [] : $item;
+            })
+            ->reject(function (array $items): bool {
+                return empty($items);
+            })
+            ->values()
+            ->all();
     }
 
     /**
@@ -106,21 +115,21 @@ class Parser
          */
         $ret = array_pluck($matches, '2', '1');
 
+        if (array_get($ret, 'type') !== 'item') {
+            $ret = [];
+        }
+
         if ($tidy) {
-            if (array_get($ret, 'type') !== 'item') {
-                $ret = [];
-            } else {
-                /**
-                 * array(3) {
-                 *   ["original"] => string(8) "Nightelf"
-                 *   ["zh-cn"] => string(12) "暗夜精灵"
-                 *   ["zh-tw"] => string(9) "夜精靈"
-                 * }.
-                 *
-                 * @var array
-                 */
-                $ret = static::makeTidy($ret);
-            }
+            /**
+             * array(3) {
+             *   ["original"] => string(8) "Nightelf"
+             *   ["zh-cn"] => string(12) "暗夜精灵"
+             *   ["zh-tw"] => string(9) "夜精靈"
+             * }.
+             *
+             * @var array
+             */
+            $ret = static::makeTidy($ret);
         }
 
         return $ret;
@@ -146,20 +155,19 @@ class Parser
             return [];
         }
 
-        $ret = [];
+        return (new Collection($matches))
+            // collect all matches
+            ->pluck('0')
+            ->map(function (string $item): array {
+                $item = static::parseDoubleBraceItem($item, true);
 
-        // collect all matches
-        $items = array_pluck($matches, '0');
-
-        foreach ($items as $key => $item) {
-            $item = static::parseDoubleBraceItem($item, true);
-
-            if (!empty($item)) {
-                $ret[] = $item;
-            }
-        }
-
-        return $ret;
+                return empty($item) ? [] : $item;
+            })
+            ->reject(function (array $items): bool {
+                return empty($items);
+            })
+            ->values()
+            ->all();
     }
 
     /**
@@ -228,23 +236,23 @@ class Parser
          */
         $ret = $ret_;
 
+        if (!in_array(array_get($ret, 'type'), ['CItem', 'CItemHidden'])) {
+            $ret = [];
+        }
+
         if ($tidy) {
-            if (!in_array(array_get($ret, 'type'), ['CItem', 'CItemHidden'])) {
-                $ret = [];
-            } else {
-                /**
-                 * array(5) {
-                 *   ["original"] => string(13) "[[千米|km]]"
-                 *   ["zh-cn"] => string(6) "千米"
-                 *   ["zh-tw"] => string(6) "公里"
-                 *   ["zh-hk"] => string(6) "公里"
-                 *   ["zh-sg"] => string(6) "公里"
-                 * }.
-                 *
-                 * @var array
-                 */
-                $ret = static::makeTidy($ret);
-            }
+            /**
+             * array(5) {
+             *   ["original"] => string(13) "[[千米|km]]"
+             *   ["zh-cn"] => string(6) "千米"
+             *   ["zh-tw"] => string(6) "公里"
+             *   ["zh-hk"] => string(6) "公里"
+             *   ["zh-sg"] => string(6) "公里"
+             * }.
+             *
+             * @var array
+             */
+            $ret = static::makeTidy($ret);
         }
 
         return $ret;
