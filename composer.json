@@ -1,7 +1,8 @@
 {
     "name": "jfcherng/wiki-cgroup-crawler",
-    "description": "此腳本用於抓取維基百科的公共轉換組詞庫，並將結果儲存為 PHP 程式碼。",
+    "description": "此腳本用於抓取維基百科的公共轉換組詞庫，並將結果儲存為外部檔案。",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jack Cherng",
@@ -25,11 +26,12 @@
         "php": "^7.1.3",
         "illuminate/support": "^5.6",
         "jaeger/querylist": "^4.0",
-        "jakewhiteley/php-sets": "^1.1"
+        "jakewhiteley/php-sets": "^1.1",
+        "jfcherng/php-array-dumper": "^0.0.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.11.1",
-        "phpunit/phpunit": "^7.0"
+        "friendsofphp/php-cs-fixer": "^2.12.1",
+        "phpunit/phpunit": "^7.2.4"
     },
     "scripts": {
         "fix": [
