@@ -17,9 +17,8 @@ $urls = [
     'https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%9D%97:CGroup/OnePiece',
 ];
 
-$dumper = (DumperFactory::make('yaml'))->setOptions([
+$dumper = DumperFactory::make('yaml', [
     'indent' => 2,
-    'shortArray' => true,
 ]);
 
 foreach ($urls as $url) {
