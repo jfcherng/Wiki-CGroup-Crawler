@@ -27,7 +27,7 @@
         "illuminate/support": "^5.6",
         "jaeger/querylist": "^4.0",
         "jakewhiteley/php-sets": "^1.1",
-        "jfcherng/php-array-dumper": "^0.0.4"
+        "jfcherng/php-array-dumper": "~0.1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.12.1",
