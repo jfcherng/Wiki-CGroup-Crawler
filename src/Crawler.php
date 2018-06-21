@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\WikiCGroupCrawler;
 
+use Campo\UserAgent;
 use JakeWhiteley\PhpSets\Set;
 use QL\QueryList;
 use RuntimeException;
@@ -85,7 +86,10 @@ class Crawler
         $args = $args ?? [];
         $headers = $headers ?? [
             'Referer' => preg_match('~https?://[^/]+~S', $url, $matches) ? $matches[0] : '',
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.33 Safari/537.36',
+            'User-Agent' => UserAgent::random([
+                'os_type' => 'Windows',
+                'device_type' => 'Desktop',
+            ]),
         ];
 
         return QueryList::get($url, $args, [
