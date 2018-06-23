@@ -30,7 +30,7 @@ class Parser
      *
      * @return array[]
      */
-    public static function parses(array $htmls): array
+    public static function parseMultiple(array $htmls): array
     {
         return array_map(__CLASS__ . '::parse', $htmls);
     }

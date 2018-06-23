@@ -67,7 +67,7 @@ class Crawler
      *
      * @return string[] the HTML source codes of it's editing page
      */
-    public static function crawls(array $urls): array
+    public static function crawlMultiple(array $urls): array
     {
         return array_map(__CLASS__ . '::crawl', $urls);
     }
@@ -83,13 +83,17 @@ class Crawler
      */
     protected static function query(string $url, ?array $args = null, ?array $headers = null): QueryList
     {
+        static $ua;
+
+        $ua = $ua ?? UserAgent::random([
+            'device_type' => 'Desktop',
+            'os_type' => 'Windows',
+        ]);
+
         $args = $args ?? [];
         $headers = $headers ?? [
             'Referer' => preg_match('~https?://[^/]+~S', $url, $matches) ? $matches[0] : '',
-            'User-Agent' => UserAgent::random([
-                'os_type' => 'Windows',
-                'device_type' => 'Desktop',
-            ]),
+            'User-Agent' => $ua,
         ];
 
         return QueryList::get($url, $args, [
