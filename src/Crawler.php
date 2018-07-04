@@ -75,6 +75,8 @@ class Crawler
     /**
      * Query a URL using GET method with specific HTTP headers.
      *
+     * @phan-suppress PhanStaticCallToNonStatic
+     *
      * @param string     $url     The URL
      * @param null|array $args    The GET mothod arguments
      * @param null|array $headers The HTTP headers

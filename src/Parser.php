@@ -18,15 +18,16 @@ class Parser
      */
     public static function parse(string $html): array
     {
-        return
+        return (array) (
             static::parseSingleBrace($html) +
-            static::parseDoubleBrace($html);
+            static::parseDoubleBrace($html)
+        );
     }
 
     /**
      * Find rules and parse them from the HTML source codes of Wiki CGroup pages.
      *
-     * @param string[] $html The HTML source codes
+     * @param string[] $htmls The HTML source codes
      *
      * @return array[]
      */
