@@ -25,16 +25,21 @@ $urls = [
 $dumper = DumperFactory::make('json');
 
 foreach ($urls as $url) {
+    $url = urldecode($url);
+
     if (!preg_match('~:CGroup/(.+)$~iuS', $url, $matches)) {
+        echo "[SKIP] {$url}\n";
         continue;
     }
 
-    $moduleName = urldecode($matches[1]);
+    echo "[BEGIN] {$url}\n";
+
+    $moduleName = $matches[1];
     $outputFile = "{$outputDir}/{$moduleName}." . $dumper::EXTENSION;
 
-    // an array of results
-    $results = CGroupFacade::fetch($url);
+    // an array of the processed data
+    $result = CGroupFacade::fetch($url);
 
-    // dump results to an external file
-    $dumper->toFile($results, $outputFile);
+    // dump result to an external file
+    $dumper->toFile($result, $outputFile);
 }
