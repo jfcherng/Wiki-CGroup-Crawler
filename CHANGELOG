@@ -3,6 +3,14 @@ VERSION 1  INIT
 ===============
 
    Version 1.2 - init
+      03/09/2018 03:06  1.2.4  guzzlehttp/guzzle and symfony/dom-crawler[H[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[C
+         e33aeaf nits
+         b328e1a Rewrite with guzzlehttp/guzzle and symfony/dom-crawler
+         dca67a1 Update deps
+         7246819 Rename CHANGELOG.md -> CHANGELOG
+         ec0c756 Update deps
+         8829267 Add composer.lock
+         e1d95ad Update .travis.yml
       04/07/2018 15:35  1.2.3  nits
          fcd1646 Update .rmt.yml
       04/07/2018 15:20  1.2.2  CI fix
