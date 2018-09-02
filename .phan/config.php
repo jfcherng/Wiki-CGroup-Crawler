@@ -16,11 +16,12 @@ return [
     // your application should be included in this list.
     'directory_list' => [
         'src',
-        'vendor/campo/random-user-agent/src',
-        'vendor/illuminate',
-        'vendor/jaeger/querylist/src',
+        'vendor/guzzlehttp/guzzle/src',
+        'vendor/illuminate/support',
         'vendor/jakewhiteley/php-sets',
         'vendor/jfcherng/php-array-dumper/src',
+        'vendor/psr/http-message/src',
+        'vendor/symfony/dom-crawler',
     ],
 
     // A directory list that defines files that will be excluded
