@@ -21,7 +21,7 @@ class ParserTest extends TestCase
             // the first testcase
             [
                 // input
-                implode(PHP_EOL, [
+                \implode(\PHP_EOL, [
                     'blah blah blah',
                     "{ type = 'item', rule = 'zh-cn:美国宇航局; zh-tw:美國國家航空暨太空總署; zh-hk:美國太空總署;', original = 'NASA' },",
                     "{ type = 'item', rule = 'zh-cn:阿贝尔星系团表; zh-tw:艾伯耳星系團表;', original = '[[:en:Abell catalogue|Abell catalogue]]' },",
@@ -44,7 +44,7 @@ class ParserTest extends TestCase
             ],
             // more testcases...
             [
-                implode(PHP_EOL, [
+                \implode(\PHP_EOL, [
                     'blah blah blah',
                     '{{CItem|zh-hans:残疾人奥林匹克运动会;zh-hk:傷殘奧林匹克運動會;zh-tw:帕拉林匹克運動會;|original=}}',
                     'blah blah blah',

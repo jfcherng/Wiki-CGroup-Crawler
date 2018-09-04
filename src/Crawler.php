@@ -23,7 +23,7 @@ class Crawler
      */
     public static function crawl(string $url): string
     {
-        if (!preg_match('~CGroup/(.*)$~iuS', $url)) {
+        if (!\preg_match('~CGroup/(.*)$~iuS', $url)) {
             return '';
         }
 
@@ -43,7 +43,7 @@ class Crawler
      */
     public static function crawlMultiple(array $urls): array
     {
-        return array_map(__CLASS__ . '::crawl', $urls);
+        return \array_map(__CLASS__ . '::crawl', $urls);
     }
 
     /**
@@ -71,7 +71,7 @@ class Crawler
             if ($visitedUrls->has($redirectedUrl)) {
                 throw new RuntimeException(
                     'URL redirection loop: ' .
-                    implode(' -> ', (array) $visitedUrls)
+                    \implode(' -> ', (array) $visitedUrls)
                 );
             }
 
@@ -97,8 +97,8 @@ class Crawler
             }
 
             // prepend the missing "https://zh.wikipedia.org"
-            if (!preg_match('~^https?://~iS', $redirectedUrl)) {
-                $baseUrl = preg_match('~^https?://[^/]+~iS', $url, $matches) ? $matches[0] : '';
+            if (!\preg_match('~^https?://~iS', $redirectedUrl)) {
+                $baseUrl = \preg_match('~^https?://[^/]+~iS', $url, $matches) ? $matches[0] : '';
                 $redirectedUrl = "{$baseUrl}{$redirectedUrl}";
             }
         }
@@ -123,7 +123,7 @@ class Crawler
 
         $headersDefault = [
             'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.72 Safari/537.36',
-            'Referer' => preg_match('~https?://[^/]++~uS', $url, $matches) ? $matches[0] : '',
+            'Referer' => \preg_match('~https?://[^/]++~uS', $url, $matches) ? $matches[0] : '',
         ];
 
         $options = [

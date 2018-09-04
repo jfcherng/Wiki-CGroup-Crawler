@@ -33,7 +33,7 @@ class Parser
      */
     public static function parseMultiple(array $htmls): array
     {
-        return array_map(__CLASS__ . '::parse', $htmls);
+        return \array_map(__CLASS__ . '::parse', $htmls);
     }
 
     /**
@@ -47,11 +47,11 @@ class Parser
     {
         // find the following form in the html
         // { type = 'item', original = 'Nightelf', rule = 'zh-tw:暗夜精灵;zh-cn:夜精靈' }
-        if (!preg_match_all(
+        if (!\preg_match_all(
             '~^{(?!{) (?: (?!}). )+ }~muxS',
             $html,
             $matches,
-            PREG_SET_ORDER
+            \PREG_SET_ORDER
         )) {
             return [];
         }
@@ -81,8 +81,8 @@ class Parser
      */
     protected static function parseSingleBraceItem(string $item, bool $tidy = false): array
     {
-        preg_match_all("~([a-zA-Z]+) \s* = \s* '([^']*)'~uxS", $item, $matches1, PREG_SET_ORDER);
-        preg_match_all('~([a-zA-Z]+) \s* = \s* "([^"]*)"~uxS', $item, $matches2, PREG_SET_ORDER);
+        \preg_match_all("~([a-zA-Z]+) \s* = \s* '([^']*)'~uxS", $item, $matches1, \PREG_SET_ORDER);
+        \preg_match_all('~([a-zA-Z]+) \s* = \s* "([^"]*)"~uxS', $item, $matches2, \PREG_SET_ORDER);
 
         /**
          * array(3) {
@@ -149,11 +149,11 @@ class Parser
     {
         // find the following form in the html
         // {{CItem|zh-cn:千米;zh-tw:公里;zh-hk:公里;zh-sg:公里 |desc=10<sup>3</sup>m|original=[[千米|km]]}}
-        if (!preg_match_all(
+        if (!\preg_match_all(
             '~^{{(?!{) (?: (?!}}).)+ }}~muxS',
             $html,
             $matches,
-            PREG_SET_ORDER
+            \PREG_SET_ORDER
         )) {
             return [];
         }
@@ -186,9 +186,9 @@ class Parser
     protected static function parseDoubleBraceItem(string $item, bool $tidy = false): array
     {
         // CItem|zh-cn:千米;zh-tw:公里;zh-hk:公里;zh-sg:公里 |desc=10<sup>3</sup>m|original=[[千米|km]]
-        $item = trim($item, " \t\n\r\0\x0B{}");
+        $item = \trim($item, " \t\n\r\0\x0B{}");
 
-        preg_match_all(
+        \preg_match_all(
             "~
                   original \s* = \s* (?: \[\[ [^\]\r\n]* \]\] | [^|\]}]* )  # original=[[千米|km]]
                 | [a-z\-]+ \s* : \s* [^};|\r\n]* (?=\s*(?: [};|] | $))  # zh-cn:千米
@@ -196,7 +196,7 @@ class Parser
             ~iuxS",
             $item,
             $matches,
-            PREG_SET_ORDER
+            \PREG_SET_ORDER
         );
 
         /**
@@ -216,12 +216,12 @@ class Parser
         $ret_ = [];
         $rule = '';
         foreach ($ret as $val) {
-            if (preg_match('~^CItem~iuxS', $val, $matches)) {
-                $ret_['type'] = trim($matches[0]);
-            } elseif (preg_match("~^(?:[a-z\-]+ \s* : \s* [^};|\r\n]*)~iuxS", $val, $matches)) {
-                $rule .= trim($matches[0]) . ';';
-            } elseif (preg_match("~^original \s* =.*~iuxS", $val, $matches)) {
-                $ret_['original'] = trim(preg_replace("~original \s* =~iuxS", '', $matches[0]));
+            if (\preg_match('~^CItem~iuxS', $val, $matches)) {
+                $ret_['type'] = \trim($matches[0]);
+            } elseif (\preg_match("~^(?:[a-z\-]+ \s* : \s* [^};|\r\n]*)~iuxS", $val, $matches)) {
+                $rule .= \trim($matches[0]) . ';';
+            } elseif (\preg_match("~^original \s* =.*~iuxS", $val, $matches)) {
+                $ret_['original'] = \trim(\preg_replace("~original \s* =~iuxS", '', $matches[0]));
             } else {
                 throw new RuntimeException("Unknown value: {$val}");
             }
@@ -239,7 +239,7 @@ class Parser
          */
         $ret = $ret_;
 
-        if (!in_array(array_get($ret, 'type'), ['CItem', 'CItemHidden'])) {
+        if (!\in_array(array_get($ret, 'type'), ['CItem', 'CItemHidden'])) {
             $ret = [];
         }
 
@@ -281,17 +281,17 @@ class Parser
          *
          * @var array
          */
-        if (trim(array_get($item, 'rule', '')) === '') {
+        if (\trim(array_get($item, 'rule', '')) === '') {
             return [];
         }
 
         $ret = [];
 
         // parse localizations
-        foreach (explode(';', $item['rule']) as $subrule) {
-            $subrule = array_map('trim', explode(':', $subrule, 2));
+        foreach (\explode(';', $item['rule']) as $subrule) {
+            $subrule = \array_map('trim', \explode(':', $subrule, 2));
 
-            if (!preg_match('~^[a-zA-Z\-]+$~', $subrule[0])) {
+            if (!\preg_match('~^[a-zA-Z\-]+$~', $subrule[0])) {
                 // something bad happens, skip this subrule
                 continue;
             }
@@ -300,12 +300,12 @@ class Parser
         }
 
         // there should be at least two localizations
-        if (count($ret) < 2) {
+        if (\count($ret) < 2) {
             return [];
         }
 
         // add the original text if it exists
-        $item['original'] = trim(array_get($item, 'original', ''));
+        $item['original'] = \trim(array_get($item, 'original', ''));
         if ($item['original'] !== '') {
             $ret['original'] = $item['original'];
         }
@@ -321,7 +321,7 @@ class Parser
          *
          * @var array
          */
-        return array_change_key_case($ret, CASE_LOWER);
+        return \array_change_key_case($ret, \CASE_LOWER);
     }
 
     /**

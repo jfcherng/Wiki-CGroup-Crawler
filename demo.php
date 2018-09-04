@@ -25,9 +25,9 @@ $urls = [
 $dumper = DumperFactory::make('json');
 
 foreach ($urls as $url) {
-    $url = urldecode($url);
+    $url = \urldecode($url);
 
-    if (!preg_match('~:CGroup/(.+)$~iuS', $url, $matches)) {
+    if (!\preg_match('~:CGroup/(.+)$~iuS', $url, $matches)) {
         echo "[SKIP] {$url}\n";
         continue;
     }
