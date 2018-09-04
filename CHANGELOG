@@ -3,6 +3,8 @@ VERSION 1  INIT
 ===============
 
    Version 1.2 - init
+      04/09/2018 19:06  1.2.5  php-cs-fixer
+         5159eca php-cs-fixer: enable native_constant_invocation and native_function_invocation
       03/09/2018 03:06  1.2.4  guzzlehttp/guzzle and symfony/dom-crawler[H[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[C
          e33aeaf nits
          b328e1a Rewrite with guzzlehttp/guzzle and symfony/dom-crawler
