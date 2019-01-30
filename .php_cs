@@ -36,10 +36,10 @@ $config = PhpCsFixer\Config::create()
         'not_operator_with_space' => false,
         'not_operator_with_successor_space' => false,
         'ordered_class_elements' => true,
-        'ordered_imports' => true,
+        'ordered_imports' => ['sort_algorithm' => 'alpha', 'imports_order' => ['class', 'const', 'function']],
         'php_unit_ordered_covers' => true,
         'php_unit_set_up_tear_down_visibility' => true,
-        'php_unit_strict' => false,
+        'php_unit_strict' => true,
         'php_unit_test_class_requires_covers' => true,
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
@@ -59,7 +59,6 @@ $config = PhpCsFixer\Config::create()
             ->exclude('tests/Fixtures')
             ->exclude('var')
             ->exclude('vendor')
-            ->exclude('results') // custom
             ->in(__DIR__)
     )
 ;
