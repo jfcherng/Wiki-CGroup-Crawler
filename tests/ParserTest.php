@@ -73,11 +73,16 @@ class ParserTest extends TestCase
      *
      * @dataProvider parserParseDataProvider
      *
-     * @param string $input  The input
-     * @param array  $output The expected output
+     * @param string $input    the input
+     * @param array  $expected the expected output
      */
-    public function testParse(string $input, array $output): void
+    public function testParse(string $input, array $expected): void
     {
-        $this->assertEquals($output, Parser::parse($input));
+        $output = Parser::parse($input);
+
+        $this->assertSame(
+            \arraySortedRecursive($expected, 'asort'),
+            \arraySortedRecursive($output, 'asort')
+        );
     }
 }
