@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\WikiCGroupCrawler;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use RuntimeException;
 
@@ -116,9 +117,9 @@ class Parser
          *
          * @var array
          */
-        $ret = array_pluck($matches, '2', '1');
+        $ret = Arr::pluck($matches, '2', '1');
 
-        if (array_get($ret, 'type') !== 'item') {
+        if (Arr::get($ret, 'type') !== 'item') {
             $ret = [];
         }
 
@@ -211,7 +212,7 @@ class Parser
          *
          * @var array
          */
-        $ret = array_pluck($matches, '0');
+        $ret = Arr::Pluck($matches, '0');
 
         $ret_ = [];
         $rule = '';
@@ -239,7 +240,7 @@ class Parser
          */
         $ret = $ret_;
 
-        if (!\in_array(array_get($ret, 'type'), ['CItem', 'CItemHidden'])) {
+        if (!\in_array(Arr::get($ret, 'type'), ['CItem', 'CItemHidden'])) {
             $ret = [];
         }
 
@@ -281,7 +282,7 @@ class Parser
          *
          * @var array
          */
-        if (\trim(array_get($item, 'rule', '')) === '') {
+        if (\trim(Arr::get($item, 'rule', '')) === '') {
             return [];
         }
 
@@ -305,7 +306,7 @@ class Parser
         }
 
         // add the original text if it exists
-        $item['original'] = \trim(array_get($item, 'original', ''));
+        $item['original'] = \trim(Arr::get($item, 'original', ''));
         if ($item['original'] !== '') {
             $ret['original'] = $item['original'];
         }
@@ -333,6 +334,6 @@ class Parser
      */
     protected static function pairToMap(array $pair): ?array
     {
-        return array_has($pair, [0, 1]) ? [$pair[0] => $pair[1]] : null;
+        return Arr::has($pair, [0, 1]) ? [$pair[0] => $pair[1]] : null;
     }
 }
