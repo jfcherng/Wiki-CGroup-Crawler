@@ -3,6 +3,15 @@ VERSION 1  INIT
 ===============
 
    Version 1.2 - init
+      27/04/2019 03:41  1.2.6  nits
+         017abd5 Fix deprecated global function usage for Illuminate\Support\Arr
+         c27a31e Update deps
+         9b96e10 Add .editorconfig
+         f84eef3 Fix tests
+         28a0d21 Update deps
+         d7d645a year++
+         8e3caec Add tests for PHP 7.3
+         51a1375 Update deps
       04/09/2018 19:06  1.2.5  php-cs-fixer
          5159eca php-cs-fixer: enable native_constant_invocation and native_function_invocation
       03/09/2018 03:06  1.2.4  guzzlehttp/guzzle and symfony/dom-crawler[H[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[C
