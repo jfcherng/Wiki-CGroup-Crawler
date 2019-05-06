@@ -7,8 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Jfcherng\WikiCGroupCrawler\Parser
+ *
+ * @internal
  */
-class ParserTest extends TestCase
+final class ParserTest extends TestCase
 {
     /**
      * Provides testcases.
@@ -80,7 +82,7 @@ class ParserTest extends TestCase
     {
         $output = Parser::parse($input);
 
-        $this->assertSame(
+        static::assertSame(
             \arraySortedRecursive($expected, 'asort'),
             \arraySortedRecursive($output, 'asort')
         );
