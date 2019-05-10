@@ -9,6 +9,8 @@
             "email": "jfcherng@gmail.com"
         }
     ],
+    "minimum-stability": "beta",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Jfcherng\\WikiCGroupCrawler\\": "src/"
@@ -25,15 +27,15 @@
     "require": {
         "php": "^7.1.3",
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/support": "^5.6",
+        "illuminate/support": "^6.0",
         "jakewhiteley/php-sets": "^1.1",
-        "jfcherng/php-array-dumper": "~0.3",
-        "symfony/css-selector": "^4.1",
-        "symfony/dom-crawler": "^4.1"
+        "jfcherng/php-array-dumper": "^1.0",
+        "symfony/css-selector": "^4.4 || ^5.0",
+        "symfony/dom-crawler": "^4.4 || ^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
-        "phan/phan": "^1.0",
+        "phan/phan": "^2.0",
         "phpunit/phpunit": "^7.2 || ^8.0"
     },
     "scripts": {
