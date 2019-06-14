@@ -43,7 +43,7 @@ class Crawler
      */
     public static function crawlMultiple(array $urls): array
     {
-        return \array_map(__CLASS__ . '::crawl', $urls);
+        return \array_map(self::class . '::crawl', $urls);
     }
 
     /**

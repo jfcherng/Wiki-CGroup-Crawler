@@ -34,7 +34,7 @@ class Parser
      */
     public static function parseMultiple(array $htmls): array
     {
-        return \array_map(__CLASS__ . '::parse', $htmls);
+        return \array_map(self::class . '::parse', $htmls);
     }
 
     /**

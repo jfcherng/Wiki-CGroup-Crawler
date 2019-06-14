@@ -27,6 +27,6 @@ class CGroupFacade
      */
     public static function fetchMultiple(array $urls): array
     {
-        return \array_map(__CLASS__ . '::fetch', $urls);
+        return \array_map(self::class . '::fetch', $urls);
     }
 }
